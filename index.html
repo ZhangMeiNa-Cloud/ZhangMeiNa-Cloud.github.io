@@ -6,8 +6,8 @@
     <script>
         // 自动加载PDF文件
         window.addEventListener('load', () => {
-            const pdfFile = '.jianli.pdf';
-            const viewerUrl = `web/viewer.html?file=${encodeURIComponent(pdfFile)}`;
+            const pdfFile = '/jianli.pdf';
+            const viewerUrl = `file=${encodeURIComponent(pdfFile)}`;
             window.location.href = viewerUrl;
         });
     </script>
