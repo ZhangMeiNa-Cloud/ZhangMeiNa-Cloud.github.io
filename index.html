@@ -1,115 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张美娜个人简历</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-        }
-        #pdf-container {
-            width: 80%;
-            max-width: 800px;
-            overflow: hidden;
-            border: 1px solid #ccc;
-            margin-top: 20px;
-        }
-        canvas {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .controls {
-            margin-bottom: 10px;
-        }
-        button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <div class="controls">
-        <button id="prev-page">上一页</button>
-        <button id="next-page">下一页</button>
-    </div>
-    <div id="pdf-container"></div>
-
-    <!-- 引入 PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"></script>
+    <title>张美娜在线简历</title>
     <script>
-        // PDF 文件路径
-        const url = './jianli.pdf'; // 替换为你的 PDF 文件路径
-        let pdf = null;
-        let currentPage = 1;
-
-        // 获取容器
-        const container = document.getElementById('pdf-container');
-        const prevButton = document.getElementById('prev-page');
-        const nextButton = document.getElementById('next-page');
-
-        // 加载 PDF 文件
-        pdfjsLib.getDocument(url).promise.then(pdfDoc => {
-            pdf = pdfDoc;
-            console.log(`PDF 加载成功，总页数：${pdf.numPages}`);
-            renderPage(currentPage);
-        }).catch(error => {
-            console.error('PDF 加载失败', error);
-        });
-
-        // 渲染页面
-        function renderPage(pageNumber) {
-            // 清空容器
-            container.innerHTML = '';
-
-            // 创建 canvas 元素
-            const canvas = document.createElement('canvas');
-            container.appendChild(canvas);
-
-            // 获取页面
-            pdf.getPage(pageNumber).then(page => {
-                const scale = 1.5; // 缩放比例
-                const viewport = page.getViewport({ scale });
-                const context = canvas.getContext('2d');
-
-                // 调整 canvas 大小
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                // 渲染页面
-                const renderContext = {
-                    canvasContext: context,
-                    viewport
-                };
-                page.render(renderContext);
-            });
-        }
-
-        // 分页按钮事件
-        prevButton.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage(currentPage);
-            }
-        });
-
-        nextButton.addEventListener('click', () => {
-            if (currentPage < pdf.numPages) {
-                currentPage++;
-                renderPage(currentPage);
-            }
+        // 自动加载PDF文件
+        window.addEventListener('load', () => {
+            const pdfFile = '.jianli.pdf';
+            const viewerUrl = `web/viewer.html?file=${encodeURIComponent(pdfFile)}`;
+            window.location.href = viewerUrl;
         });
     </script>
+</head>
+<body>
+    <h2>正在加载查看器...</h2>
 </body>
 </html>
